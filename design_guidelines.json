@@ -1,0 +1,142 @@
+{
+  "project_name": "PhishSentinel",
+  "domain": "Cybersecurity & Threat Intelligence",
+  "theme": "DARK",
+  "archetype": "Archetype 4: Swiss & High-Contrast (Retro-Futurism / Terminal Variant)",
+  "design_philosophy": "A serious security tool with a threat-ops console aesthetic. Data-dense, high-contrast, structural. Avoid soft gradients and standard SaaS styling. Optimize for role-based insights, F-pattern scanning, and rapid threat detection.",
+  "colors": {
+    "background": "#050505",
+    "surface": "#0C0D10",
+    "surface_hover": "#14151A",
+    "border": "#1E2028",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#8A8D98",
+    "status": {
+      "safe": "#00FF66",
+      "suspicious": "#FFB800",
+      "phishing": "#FF3333"
+    },
+    "chart_palette": [
+      "#FF3333",
+      "#FFB800",
+      "#00FF66",
+      "#3388FF",
+      "#8A8D98"
+    ]
+  },
+  "typography": {
+    "fonts": {
+      "headings": "JetBrains Mono, monospace",
+      "body": "IBM Plex Sans, sans-serif",
+      "data_numbers": "JetBrains Mono, monospace"
+    },
+    "scales": {
+      "h1": "text-4xl sm:text-5xl tracking-tighter",
+      "h2": "text-2xl sm:text-3xl tracking-tight",
+      "h3": "text-lg sm:text-xl",
+      "h4": "text-base sm:text-lg font-bold",
+      "body": "text-sm",
+      "small_labels": "text-xs tracking-[0.2em] uppercase font-mono"
+    },
+    "rules": [
+      "NO INTER FOR HEADINGS.",
+      "Use JetBrains Mono for all critical data points, scores, and titles to reinforce the terminal aesthetic.",
+      "Line height: leading-none for headings, leading-relaxed for body.",
+      "Labels must be uppercase, tiny, and widely spaced."
+    ]
+  },
+  "spacing_and_layout": {
+    "strategy": "The 'Control Room' Grid",
+    "grid_system": "grid-cols-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 md:gap-6",
+    "container_padding": "p-6",
+    "rules": [
+      "Every pixel utilized. Use h-full on children.",
+      "Bento box modularity for the dashboard panels.",
+      "Left-align text by default. Center-align only for isolated metrics or the main scanner input.",
+      "Dense padding inside data tables (p-2 or p-3), generous padding for main containers (p-6 or p-8)."
+    ]
+  },
+  "surface_strategies": {
+    "global": "Grid Borders (The 'Technical' Look)",
+    "cards": {
+      "background": "bg-[#0C0D10]",
+      "border": "border border-[#1E2028]",
+      "radius": "rounded-none",
+      "shadow": "none",
+      "hover": "hover:bg-[#14151A] hover:border-[#3388FF]/50 transition-colors duration-200"
+    },
+    "header": {
+      "background": "bg-[#050505]/80 backdrop-blur-md",
+      "border": "border-b border-[#1E2028]"
+    },
+    "inputs": {
+      "background": "bg-[#050505]",
+      "border": "border border-[#1E2028] focus:border-[#3388FF] focus:ring-1 focus:ring-[#3388FF]"
+    }
+  },
+  "components_instructions": {
+    "general": [
+      "DO NOT use standard HTML dropdowns/calendars. Use customized Shadcn UI components.",
+      "All interactive elements MUST have data-testid attributes (e.g., data-testid='url-scan-button').",
+      "Card components should be square-edged (rounded-none) to maintain the brutalist/terminal look.",
+      "Do not use soft shadows. Rely on 1px solid borders for separation."
+    ],
+    "url_scanner_hero": [
+      "Massive command-line style input field.",
+      "Font: JetBrains Mono.",
+      "Include a blinking cursor effect or terminal prefix (e.g., '>_').",
+      "Button: Solid high-contrast (e.g., text-black bg-white hover:bg-gray-200) with monospace text."
+    ],
+    "verdict_card": [
+      "Traffic-light color coding is critical here (Green/Yellow/Red).",
+      "Use a radial gauge or progress bar for the final score.",
+      "Apply 'The Tracing Beam' (neon glow border) if the verdict is PHISHING."
+    ],
+    "breakdown_panel": [
+      "Use 'Control Room' span logic. 3 equal columns for ML (0.5), CNN (0.3), DB (0.2).",
+      "Show raw sub-scores prominently."
+    ],
+    "feature_analysis_table": [
+      "Dense, tabular layout.",
+      "Expose the grid skeleton (visible borders between rows).",
+      "Use mono fonts for IP addresses, entropy values, and feature names."
+    ],
+    "threat_intel_feed": [
+      "Live-updating ticker or narrow vertical list.",
+      "Minimalist vote buttons (Up/Down) with hover highlights."
+    ]
+  },
+  "motion_and_interactions": {
+    "rules": [
+      "Minimalist and sharp.",
+      "Hover states must shift background color slightly and brighten borders.",
+      "Use staggered fade-in + slide-up (translate-y-2) for dashboard widgets on load.",
+      "Include a 'scanning' state animation for the URL analysis (e.g., scrolling raw text, progress bar)."
+    ]
+  },
+  "media": {
+    "rules": [
+      "Use background images subtly with max 10-15% opacity to avoid competing with data.",
+      "Do NOT use generic placeholder images."
+    ],
+    "image_urls": [
+      {
+        "category": "background_texture",
+        "url": "https://images.unsplash.com/photo-1755134148020-f4a1508404e9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwxfHxjeWJlcnNlY3VyaXR5JTIwdGVjaG5vbG9neSUyMGxvZ28lMjBpc29sYXRlZHxlbnwwfHx8fDE3Nzc4OTA1NTZ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract circular glitch effect - use as an extremely faint (opacity-5) background texture behind the verdict gauge or hero section."
+      },
+      {
+        "category": "accent_light",
+        "url": "https://images.unsplash.com/photo-1656523537172-63d277539a03?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwyfHxjeWJlcnNlY3VyaXR5JTIwdGVjaG5vbG9neSUyMGxvZ28lMjBpc29sYXRlZHxlbnwwfHx8fDE3Nzc4OTA1NTZ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "A blue light in the dark - use dynamically as a background image with overlay (bg-black/90) for the main Threat Intelligence feed container to give it a deep, glowing feel."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Strictly apply JetBrains Mono to all headings, numbers, and inputs. Add it via Google Fonts.",
+    "Do not round corners (use rounded-none).",
+    "Ensure all backgrounds are #050505 or #0C0D10, avoiding generic grays.",
+    "Use data-testid on inputs, scan buttons, feed vote buttons, and tab triggers.",
+    "Recharts: Ensure grids and axes are dark (#1E2028), using chart_palette for data series."
+  ]
+}
