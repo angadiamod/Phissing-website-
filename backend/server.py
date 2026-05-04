@@ -88,7 +88,7 @@ async def scan_url(req: ScanRequest) -> dict[str, Any]:
     reports = await db.threat_reports.find(
         {"host": host}, {"_id": 0}
     ).to_list(50)
-    confirmed = [r for r in reports if r.get("vote_score", 0) >= 0]
+    confirmed = [r for r in reports if r.get("vote_score", 0) > 0]
     if confirmed:
         db_score = min(100.0, 60.0 + 10.0 * len(confirmed))
         db_note = f"Host reported {len(confirmed)}× by community"
@@ -96,9 +96,16 @@ async def scan_url(req: ScanRequest) -> dict[str, Any]:
         db_score = 0.0
         db_note = "No community reports for this host"
 
-    # 3. Visual cloning
+    # 3. Visual cloning — cap total latency so /api/scan stays responsive
+    import asyncio as _asyncio
     try:
-        visual = await analyze_visual(url)
+        visual = await _asyncio.wait_for(analyze_visual(url), timeout=45.0)
+    except _asyncio.TimeoutError:
+        visual = {
+            "cnn_score": 0.0, "cloned_brand": None, "similarity": 0,
+            "suspicious_elements": [], "screenshot_b64": None,
+            "note": "Visual analysis timed out",
+        }
     except Exception as exc:
         logger.exception("Visual analysis failed")
         visual = {
