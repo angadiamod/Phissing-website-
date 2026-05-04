@@ -1,34 +1,74 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+.App {
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.font-mono-display {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-feature-settings: "ss02";
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Terminal caret blink */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.caret::after {
+  content: "▎";
+  margin-left: 2px;
+  animation: blink 1s steps(1) infinite;
+  color: #00ff66;
 }
 
-.App-link {
-    color: #61dafb;
+/* Scanning sweep */
+@keyframes sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.scanning-bar {
+  position: relative;
+  overflow: hidden;
+}
+.scanning-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(51,136,255,0.35), transparent);
+  animation: sweep 1.6s linear infinite;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Subtle grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(30,32,40,0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30,32,40,0.6) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Phishing pulse border */
+@keyframes phish-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,51,51,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(255,51,51,0); }
+}
+.phish-glow {
+  animation: phish-pulse 2s ease-in-out infinite;
+}
+
+/* Stagger entrance */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.stagger > * {
+  animation: slide-up 0.35s ease-out both;
+}
+.stagger > *:nth-child(1) { animation-delay: 0.02s; }
+.stagger > *:nth-child(2) { animation-delay: 0.08s; }
+.stagger > *:nth-child(3) { animation-delay: 0.14s; }
+.stagger > *:nth-child(4) { animation-delay: 0.20s; }
+.stagger > *:nth-child(5) { animation-delay: 0.26s; }
+.stagger > *:nth-child(6) { animation-delay: 0.32s; }
+
+::selection {
+  background: #00ff66;
+  color: #050505;
 }
