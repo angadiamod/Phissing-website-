@@ -13,6 +13,7 @@ import {
   ArrowDown,
   Loader2,
   Eye,
+  Bot,
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -23,6 +24,7 @@ import ScanResult from "../components/ScanResult";
 import StatsBar from "../components/StatsBar";
 import ThreatFeed from "../components/ThreatFeed";
 import ScanHistory from "../components/ScanHistory";
+import CrawlerPanel from "../components/CrawlerPanel";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -269,12 +271,22 @@ export default function Dashboard() {
                 >
                   <Activity className="w-3 h-3 mr-2" /> Scan History
                 </TabsTrigger>
+                <TabsTrigger
+                  data-testid="tab-crawler"
+                  value="crawler"
+                  className="rounded-none font-mono-display uppercase text-[11px] tracking-[0.2em] data-[state=active]:bg-[#14151A] data-[state=active]:text-[#FFB800] px-5 py-2"
+                >
+                  <Bot className="w-3 h-3 mr-2" /> Crawler
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="intel" className="mt-4">
                 <ThreatFeed threats={threats} onVote={voteThreat} />
               </TabsContent>
               <TabsContent value="history" className="mt-4">
                 <ScanHistory history={history} />
+              </TabsContent>
+              <TabsContent value="crawler" className="mt-4">
+                <CrawlerPanel />
               </TabsContent>
             </Tabs>
           </div>
@@ -284,7 +296,7 @@ export default function Dashboard() {
               <Eye className="w-3 h-3" /> detection methodology
             </div>
             <div className="font-mono-display text-2xl tracking-tight leading-tight mb-6">
-              <span className="text-[#00FF66]">3-layer</span> hybrid engine
+              <span className="text-[#00FF66]">4-layer</span> hybrid engine
             </div>
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3">
@@ -306,6 +318,13 @@ export default function Dashboard() {
                 <div>
                   <div className="font-mono-display font-semibold">Collaborative Threat Intel</div>
                   <div className="text-[#8A8D98] text-xs mt-1">Community-voted database of reported phishing hosts — zero-hour crowdsourced signal.</div>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <span className="font-mono-display text-[#FFB800] text-xs mt-1 shrink-0">BOT</span>
+                <div>
+                  <div className="font-mono-display font-semibold">Autonomous Crawler</div>
+                  <div className="text-[#8A8D98] text-xs mt-1">Polls URLhaus + CertStream every 15 min — auto-runs full hybrid scans on suspicious new domains.</div>
                 </div>
               </li>
             </ul>
