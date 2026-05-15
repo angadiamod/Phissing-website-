@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="popup.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="brand">PHISH<span class="accent">SENTINEL</span></span>
+      <span class="tagline">ZERO-HOUR · HYBRID DETECTION</span>
+    </div>
+  </header>
+
+  <main id="root">
+    <div class="card" id="loading">
+      <div class="spinner"></div>
+      <div class="muted">Scanning current tab…</div>
+    </div>
+  </main>
+
+  <footer>
+    <button id="rescan-btn">▶ RE-SCAN</button>
+    <button id="report-btn">⚑ REPORT</button>
+    <button id="options-btn">⚙</button>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

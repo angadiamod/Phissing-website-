@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect width="128" height="128" fill="#050505"/>
+  <path d="M64 12 L108 30 V62 C108 86 88 102 64 116 C40 102 20 86 20 62 V30 Z"
+        fill="none" stroke="#00FF66" stroke-width="5"/>
+  <text x="64" y="76" text-anchor="middle" fill="#00FF66"
+        font-family="JetBrains Mono, monospace" font-size="32" font-weight="800">PS</text>
+</svg>

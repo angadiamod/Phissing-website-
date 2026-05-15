@@ -34,3 +34,14 @@ visual cloning + collaborative threat intel + autonomous crawler bot.
 - P2: Real XGBoost model trained on PhishTank+Alexa
 - P2: Email/Slack alerts when crawler finds PHISHING verdict
 - P2: Graph view of related malicious infrastructure (host clusters)
+
+### Phase 3 (May 2026) — Chrome Extension + Public Intel Feed
+- /app/chrome_extension/ — Manifest V3 browser extension (10 files, 9.3 KB)
+  - background.js: auto-scans every http(s) page on load, 1h cache, badge score, notification on PHISHING
+  - popup.html/js/css: terminal-aesthetic popup with verdict + ML/CNN/DB breakdown + brand impersonation row
+  - options.html/js: configurable backend URL via chrome.storage.sync
+  - content.js: window.postMessage bridge so any page can query the scanner
+  - icon.png (128×128) + icon.svg
+  - README.md with install + usage instructions
+- /app/phishsentinel_chrome_extension.zip — ready to download + Load Unpacked
+- GET /api/intel/feed — public threat-intel digest (crawler findings + community-confirmed reports >=1 vote) for SIEM/researchers

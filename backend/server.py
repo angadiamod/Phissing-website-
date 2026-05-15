@@ -252,6 +252,28 @@ async def crawler_runs(limit: int = 15):
     return await db.crawler_runs.find({}, {"_id": 0}).sort("started_at", -1).to_list(max(1, min(50, limit)))
 
 
+@api_router.get("/intel/feed")
+async def intel_feed(limit: int = 50):
+    """Public threat-intel feed — read-only digest of crawler findings + community reports.
+    Useful for security researchers, SIEMs, and integrations."""
+    crawler = await db.crawler_findings.find(
+        {}, {"_id": 0, "scan_id": 0}
+    ).sort("discovered_at", -1).to_list(max(1, min(200, limit)))
+    community = await db.threat_reports.find(
+        {"vote_score": {"$gte": 1}},
+        {"_id": 0, "id": 1, "url": 1, "host": 1, "reason": 1, "created_at": 1, "vote_score": 1},
+    ).sort("created_at", -1).to_list(max(1, min(200, limit)))
+    return {
+        "generated_at": now_iso(),
+        "crawler_findings": crawler,
+        "community_reports": community,
+        "summary": {
+            "crawler_count": len(crawler),
+            "community_count": len(community),
+        },
+    }
+
+
 @api_router.post("/crawler/run")
 async def crawler_run(background: BackgroundTasks):
     """Trigger a manual crawl cycle in the background."""
