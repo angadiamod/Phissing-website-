@@ -1,4 +1,6 @@
-import { ShieldCheck, ShieldAlert, ShieldX, ExternalLink } from "lucide-react";
+import { ShieldCheck, ShieldAlert, ShieldX, ExternalLink, Share2 } from "lucide-react";
+import { toast } from "sonner";
+import ShapPanel from "./ShapPanel";
 
 const VERDICT_STYLE = {
   SAFE: { color: "#00FF66", icon: ShieldCheck, bg: "rgba(0,255,102,0.08)" },
@@ -76,6 +78,16 @@ export default function ScanResult({ result }) {
           >
             <ExternalLink className="w-3 h-3 shrink-0" /> {result.url}
           </a>
+          <button
+            data-testid="share-verdict-btn"
+            onClick={() => {
+              navigator.clipboard.writeText(`${window.location.origin}/v/${result.id}`);
+              toast.success("Shareable verdict link copied");
+            }}
+            className="mt-3 flex items-center gap-2 border border-[#1E2028] px-3 py-1.5 text-[10px] font-mono-display uppercase tracking-widest text-[#8A8D98] hover:text-white hover:border-[#3388FF]"
+          >
+            <Share2 className="w-3 h-3" /> Share Verdict
+          </button>
         </div>
 
         {/* Breakdown */}
@@ -95,6 +107,9 @@ export default function ScanResult({ result }) {
               <span className="text-white font-bold">{result.final_score}</span>
             </div>
           </div>
+
+          {/* SHAP explainable AI */}
+          {result.shap && <ShapPanel shap={result.shap} />}
 
           {/* Visual clone */}
           <div className="border border-[#1E2028] bg-[#050505] p-4" data-testid="visual-card">

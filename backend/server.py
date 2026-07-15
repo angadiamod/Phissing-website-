@@ -128,9 +128,10 @@ async def run_hybrid_scan(url: str, *, deep: bool = True) -> dict[str, Any]:
     url_analysis = extract_features(url)
     ml_score = url_analysis["ml_score"]
 
-    # ML model probability
+    # ML model probability + SHAP explanation
     model_pred = ml_engine.predict_with_best(url_analysis["features"])
     model_score = model_pred["model_score"] if model_pred else None
+    shap_explanation = ml_engine.explain_prediction(url_analysis["features"])
 
     # Community DB score
     reports = await db.threat_reports.find({"host": host}, {"_id": 0}).to_list(50)
@@ -202,6 +203,7 @@ async def run_hybrid_scan(url: str, *, deep: bool = True) -> dict[str, Any]:
                          "matching_reports": len(confirmed),
                          "crawler_hits": crawler_hits},
         "decision": decision,
+        "shap": shap_explanation,
     }
     doc = {**scan}
     # Save the base64 screenshot to a separate collection so the scans list
@@ -526,6 +528,41 @@ async def admin_verify_threat(threat_id: str, admin: dict = Depends(require_admi
 @api_router.get("/admin/audit")
 async def admin_audit(limit: int = 100, admin: dict = Depends(require_admin)):
     return await db.audit.find({}, {"_id": 0}).sort("at", -1).to_list(max(1, min(500, limit)))
+
+
+# ─────────────── PUBLIC SHAREABLE VERDICT ───────────────
+@api_router.get("/public/verdict/{scan_id}")
+async def public_verdict(scan_id: str):
+    """Sanitized, no-auth verdict for shareable /v/{scan_id} links."""
+    doc = await db.scans.find_one({"id": scan_id}, {
+        "_id": 0, "id": 1, "url": 1, "host": 1, "created_at": 1,
+        "ml_score": 1, "model_score": 1, "model_used": 1, "cnn_score": 1,
+        "db_score": 1, "network_score": 1, "final_score": 1,
+        "verdict": 1, "confidence": 1, "category": 1,
+        "visual.cloned_brand": 1, "visual.similarity": 1,
+        "shap.model": 1, "shap.contributions": 1, "shap.phish_probability": 1,
+    })
+    if not doc:
+        raise HTTPException(404, "Verdict not found")
+    return doc
+
+
+@api_router.get("/scans/{scan_id}/explain")
+async def explain_scan(scan_id: str):
+    """On-demand SHAP explanation for older scans that lack a stored one."""
+    doc = await db.scans.find_one({"id": scan_id}, {"_id": 0})
+    if not doc:
+        raise HTTPException(404, "Scan not found")
+    if doc.get("shap"):
+        return doc["shap"]
+    features = (doc.get("url_analysis") or {}).get("features") or []
+    if not features:
+        raise HTTPException(404, "No features stored for this scan")
+    explanation = ml_engine.explain_prediction(features)
+    if not explanation:
+        raise HTTPException(503, "Explainer unavailable")
+    await db.scans.update_one({"id": scan_id}, {"$set": {"shap": explanation}})
+    return explanation
 
 
 # ─────────────── VISUAL EVIDENCE (Layer 2 collection) ───────────────

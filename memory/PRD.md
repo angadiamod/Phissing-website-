@@ -55,3 +55,18 @@ visual cloning + collaborative threat intel + autonomous crawler bot.
 - **Visual Evidence Collection** — every scan's Gemini screenshot saved to `db.visual_evidence` with brand+similarity metadata
 - New endpoints: /api/visual/evidence, /api/visual/evidence/{id}, /api/visual/by-scan/{scan_id}
 - New page: /evidence — visual gallery grid with click-to-expand full-size screenshot + brand info
+
+### Phase 6 (Jul 15 2026) — Explainable AI + Shareable Verdicts
+- **SHAP explanations** — `ml_engine.explain_prediction()` runs shap.TreeExplainer on the
+  trained XGBoost champion (cached per model mtime). Stored in each scan doc under `shap`
+  (top 14 log-odds contributions, base value, P(phish)).
+- `GET /api/scans/{scan_id}/explain` — on-demand SHAP for older scans (backfills into doc)
+- Frontend `ShapPanel.jsx` — bidirectional bar chart (red → phishing, green → safe),
+  embedded in ScanResult, data-testid="shap-panel"
+- **Public shareable verdict URLs** — `GET /api/public/verdict/{scan_id}` (sanitized, no auth)
+  + frontend route `/v/:scanId` (`VerdictPage.jsx`, outside sidebar shell) with verdict,
+  5-way score grid, brand-impersonation alert, SHAP panel, Copy Link button
+- "Share Verdict" button on ScanResult copies `{origin}/v/{scan_id}` to clipboard
+- Fixed: prior "/analytics timeout" was a stale preview URL, page loads fine
+  (correct preview: smart-share-hub-2.preview.emergentagent.com)
+- SKIPPED (needs GPU worker): EfficientNet/ResNet50/ViT visual model comparison

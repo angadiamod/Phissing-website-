@@ -399,6 +399,61 @@ def load_metrics() -> dict:
         return {"results": [], "best_model": None}
 
 
+_explainer_cache: dict[str, Any] = {}
+
+
+def explain_prediction(features: list[dict]) -> dict | None:
+    """SHAP TreeExplainer breakdown for the champion model on one sample."""
+    bundle = load_best_model()
+    if not bundle:
+        return None
+    model = bundle["model"]
+    feat_names = bundle["feature_names"]
+    by_name = {f["name"]: f.get("risk", 0.0) for f in features}
+    vec = np.array([[float(by_name.get(n, 0.0)) for n in feat_names]])
+    try:
+        import shap
+        mtime = str(BEST_MODEL_PATH.stat().st_mtime)
+        if _explainer_cache.get("mtime") != mtime:
+            _explainer_cache["explainer"] = shap.TreeExplainer(model)
+            _explainer_cache["mtime"] = mtime
+        explainer = _explainer_cache["explainer"]
+        sv = explainer.shap_values(vec)
+        if isinstance(sv, list):  # some sklearn models return [class0, class1]
+            sv = sv[1] if len(sv) > 1 else sv[0]
+        vals = np.array(sv).reshape(-1)[: len(feat_names)]
+        base = explainer.expected_value
+        if isinstance(base, (list, np.ndarray)):
+            base = float(np.array(base).reshape(-1)[-1])
+        else:
+            base = float(base)
+        detail_by_name = {f["name"]: f for f in features}
+        contribs = []
+        for i, n in enumerate(feat_names):
+            contribs.append({
+                "name": n,
+                "value": round(float(vec[0][i]), 3),
+                "shap": round(float(vals[i]), 4),
+                "direction": "phishing" if vals[i] > 0 else "safe",
+                "detail": detail_by_name.get(n, {}).get("detail", ""),
+            })
+        contribs.sort(key=lambda c: -abs(c["shap"]))
+        margin = base + float(vals.sum())
+        prob = float(1.0 / (1.0 + np.exp(-margin)))
+        return {
+            "model": bundle["model_name"],
+            "method": "SHAP TreeExplainer",
+            "base_value": round(base, 4),
+            "output_margin": round(margin, 4),
+            "phish_probability": round(prob, 4),
+            "contributions": contribs[:14],
+            "n_features": len(feat_names),
+        }
+    except Exception as e:
+        logger.warning(f"SHAP explanation failed: {e}")
+        return None
+
+
 def predict_with_best(features: list[dict]) -> dict | None:
     bundle = load_best_model()
     if not bundle:

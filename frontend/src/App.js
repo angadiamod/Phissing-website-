@@ -13,6 +13,7 @@ import LogsPage from "./pages/LogsPage";
 import VisualEvidencePage from "./pages/VisualEvidencePage";
 import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
+import VerdictPage from "./pages/VerdictPage";
 
 function AdminGate({ children }) {
   const { user, loading } = useAuth();
@@ -50,6 +51,7 @@ export default function App() {
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/v/:scanId" element={<VerdictPage />} />
             <Route path="/*" element={<Shell />} />
           </Routes>
         </AuthProvider>
