@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Search, Radio, Bot, BarChart3, Shield,
-  LogIn, LogOut, ShieldCheck, Users, Activity, Map,
+  LogIn, LogOut, ShieldCheck, Users, Activity, Map, Camera,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -10,6 +10,7 @@ const NAV = [
   { to: "/scanner", icon: Search, label: "Scanner" },
   { to: "/intelligence", icon: Radio, label: "Threat Intel" },
   { to: "/crawler", icon: Bot, label: "Crawler" },
+  { to: "/evidence", icon: Camera, label: "Visual Evidence" },
   { to: "/analytics", icon: BarChart3, label: "Analytics" },
   { to: "/map", icon: Map, label: "Threat Map" },
   { to: "/logs", icon: Activity, label: "Live Logs" },

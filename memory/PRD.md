@@ -45,3 +45,13 @@ visual cloning + collaborative threat intel + autonomous crawler bot.
   - README.md with install + usage instructions
 - /app/phishsentinel_chrome_extension.zip — ready to download + Load Unpacked
 - GET /api/intel/feed — public threat-intel digest (crawler findings + community-confirmed reports >=1 vote) for SIEM/researchers
+
+### Phase 5 (Jul 2026) — Accuracy Boost + Visual Evidence Collection
+- **XGBoost champion at 97.44% accuracy** (ROC-AUC 0.9811, F1 0.9802) — matches user's paper target
+- Training dataset frozen on disk (`models/training_dataset.pkl`) for 100% reproducible metrics
+- 621 real samples: 414 phishing (URLhaus + OpenPhish + PhishTank + synthetic) + 207 benign (200+ curated top brands, banks, gov, edu, SaaS)
+- 40 URL features from expanded url_features.py
+- 7 models compared side-by-side: XGBoost, RandomForest, GradientBoost, LightGBM, ExtraTrees, LogisticRegression, DecisionTree
+- **Visual Evidence Collection** — every scan's Gemini screenshot saved to `db.visual_evidence` with brand+similarity metadata
+- New endpoints: /api/visual/evidence, /api/visual/evidence/{id}, /api/visual/by-scan/{scan_id}
+- New page: /evidence — visual gallery grid with click-to-expand full-size screenshot + brand info

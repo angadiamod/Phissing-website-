@@ -10,6 +10,7 @@ import CrawlerPage from "./pages/CrawlerPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import ThreatMapPage from "./pages/ThreatMapPage";
 import LogsPage from "./pages/LogsPage";
+import VisualEvidencePage from "./pages/VisualEvidencePage";
 import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
 
@@ -33,6 +34,7 @@ function Shell() {
           <Route path="/crawler" element={<CrawlerPage />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="/map" element={<ThreatMapPage />} />
+          <Route path="/evidence" element={<VisualEvidencePage />} />
           <Route path="/logs" element={<LogsPage />} />
           <Route path="/admin" element={<AdminGate><AdminPage /></AdminGate>} />
         </Routes>

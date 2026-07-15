@@ -204,6 +204,23 @@ async def run_hybrid_scan(url: str, *, deep: bool = True) -> dict[str, Any]:
         "decision": decision,
     }
     doc = {**scan}
+    # Save the base64 screenshot to a separate collection so the scans list
+    # stays lightweight but the evidence is preserved.
+    if scan["visual"].get("screenshot_b64"):
+        try:
+            await db.visual_evidence.insert_one({
+                "id": str(uuid.uuid4()),
+                "scan_id": scan["id"],
+                "url": url,
+                "host": host,
+                "cloned_brand": scan["visual"].get("cloned_brand"),
+                "similarity": scan["visual"].get("similarity", 0),
+                "cnn_score": cnn_score,
+                "screenshot_b64": scan["visual"]["screenshot_b64"],
+                "captured_at": now_iso(),
+            })
+        except Exception:
+            logger.exception("Failed to save visual evidence")
     doc["visual"] = {**scan["visual"], "screenshot_b64": None}
     await db.scans.insert_one(doc)
     return scan
@@ -509,6 +526,35 @@ async def admin_verify_threat(threat_id: str, admin: dict = Depends(require_admi
 @api_router.get("/admin/audit")
 async def admin_audit(limit: int = 100, admin: dict = Depends(require_admin)):
     return await db.audit.find({}, {"_id": 0}).sort("at", -1).to_list(max(1, min(500, limit)))
+
+
+# ─────────────── VISUAL EVIDENCE (Layer 2 collection) ───────────────
+@api_router.get("/visual/evidence")
+async def visual_evidence(limit: int = 30):
+    """Public read-only feed of screenshots captured by Layer 2."""
+    docs = await db.visual_evidence.find(
+        {}, {"_id": 0, "screenshot_b64": 0}
+    ).sort("captured_at", -1).to_list(max(1, min(100, limit)))
+    return {
+        "total": await db.visual_evidence.count_documents({}),
+        "items": docs,
+    }
+
+
+@api_router.get("/visual/evidence/{evidence_id}")
+async def visual_evidence_detail(evidence_id: str):
+    doc = await db.visual_evidence.find_one({"id": evidence_id}, {"_id": 0})
+    if not doc:
+        raise HTTPException(404, "Evidence not found")
+    return doc
+
+
+@api_router.get("/visual/by-scan/{scan_id}")
+async def visual_by_scan(scan_id: str):
+    doc = await db.visual_evidence.find_one({"scan_id": scan_id}, {"_id": 0})
+    if not doc:
+        raise HTTPException(404, "No visual evidence for this scan")
+    return doc
 
 
 app.include_router(api_router)
