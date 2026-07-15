@@ -1,0 +1,621 @@
+{
+  "trained_at": "2026-07-15T06:47:27.027695+00:00",
+  "n_samples": 211,
+  "n_features": 40,
+  "best_model": "DecisionTree",
+  "best_roc_auc": 1.0,
+  "results": [
+    {
+      "model": "DecisionTree",
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "roc_auc": 1.0,
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "feature_importance": [
+        {
+          "name": "url_length",
+          "importance": 0.6067
+        },
+        {
+          "name": "uses_https",
+          "importance": 0.3191
+        },
+        {
+          "name": "hyphen_count",
+          "importance": 0.0737
+        },
+        {
+          "name": "host_entropy",
+          "importance": 0.0002
+        },
+        {
+          "name": "consonant_vowel_ratio",
+          "importance": 0.0002
+        },
+        {
+          "name": "subdomain_depth",
+          "importance": 0.0001
+        },
+        {
+          "name": "hostname_length",
+          "importance": 0.0
+        },
+        {
+          "name": "path_length",
+          "importance": 0.0
+        },
+        {
+          "name": "query_length",
+          "importance": 0.0
+        },
+        {
+          "name": "special_char_count",
+          "importance": 0.0
+        },
+        {
+          "name": "dot_count",
+          "importance": 0.0
+        },
+        {
+          "name": "digit_count_host",
+          "importance": 0.0
+        }
+      ]
+    },
+    {
+      "model": "RandomForest",
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "roc_auc": 1.0,
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.791
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.837
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "feature_importance": [
+        {
+          "name": "uses_https",
+          "importance": 0.2039
+        },
+        {
+          "name": "url_length",
+          "importance": 0.1346
+        },
+        {
+          "name": "host_entropy",
+          "importance": 0.1306
+        },
+        {
+          "name": "path_depth",
+          "importance": 0.0834
+        },
+        {
+          "name": "digit_ratio_url",
+          "importance": 0.0766
+        },
+        {
+          "name": "digit_count_host",
+          "importance": 0.0697
+        },
+        {
+          "name": "path_entropy",
+          "importance": 0.06
+        },
+        {
+          "name": "ip_in_host",
+          "importance": 0.0483
+        },
+        {
+          "name": "hyphen_count",
+          "importance": 0.0463
+        },
+        {
+          "name": "subdomain_depth",
+          "importance": 0.0405
+        },
+        {
+          "name": "hostname_length",
+          "importance": 0.0215
+        },
+        {
+          "name": "suspicious_tld",
+          "importance": 0.0155
+        }
+      ]
+    },
+    {
+      "model": "ExtraTrees",
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "roc_auc": 1.0,
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.953
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "feature_importance": [
+        {
+          "name": "uses_https",
+          "importance": 0.198
+        },
+        {
+          "name": "url_length",
+          "importance": 0.1237
+        },
+        {
+          "name": "path_depth",
+          "importance": 0.1018
+        },
+        {
+          "name": "digit_ratio_url",
+          "importance": 0.0984
+        },
+        {
+          "name": "host_entropy",
+          "importance": 0.0965
+        },
+        {
+          "name": "digit_count_host",
+          "importance": 0.0616
+        },
+        {
+          "name": "hyphen_count",
+          "importance": 0.0574
+        },
+        {
+          "name": "path_entropy",
+          "importance": 0.0573
+        },
+        {
+          "name": "subdomain_depth",
+          "importance": 0.0526
+        },
+        {
+          "name": "ip_in_host",
+          "importance": 0.0367
+        },
+        {
+          "name": "hostname_length",
+          "importance": 0.0275
+        },
+        {
+          "name": "suspicious_tld",
+          "importance": 0.0245
+        }
+      ]
+    },
+    {
+      "model": "GradientBoost",
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "roc_auc": 1.0,
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.023
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.116
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.163
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.186
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.698
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.721
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.907
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.93
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.977
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "feature_importance": [
+        {
+          "name": "url_length",
+          "importance": 0.6067
+        },
+        {
+          "name": "uses_https",
+          "importance": 0.3192
+        },
+        {
+          "name": "hyphen_count",
+          "importance": 0.0736
+        },
+        {
+          "name": "consonant_vowel_ratio",
+          "importance": 0.0004
+        },
+        {
+          "name": "hostname_length",
+          "importance": 0.0
+        },
+        {
+          "name": "path_length",
+          "importance": 0.0
+        },
+        {
+          "name": "query_length",
+          "importance": 0.0
+        },
+        {
+          "name": "special_char_count",
+          "importance": 0.0
+        },
+        {
+          "name": "dot_count",
+          "importance": 0.0
+        },
+        {
+          "name": "digit_count_host",
+          "importance": 0.0
+        },
+        {
+          "name": "digit_ratio_url",
+          "importance": 0.0
+        },
+        {
+          "name": "uppercase_in_host",
+          "importance": 0.0
+        }
+      ]
+    },
+    {
+      "model": "LogisticRegression",
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "roc_auc": 1.0,
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.047
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.233
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.512
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.535
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.581
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.605
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.744
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "feature_importance": [
+        {
+          "name": "uses_https",
+          "importance": 2.3604
+        },
+        {
+          "name": "url_length",
+          "importance": 2.2908
+        },
+        {
+          "name": "host_entropy",
+          "importance": 1.7473
+        },
+        {
+          "name": "ip_in_host",
+          "importance": 1.3449
+        },
+        {
+          "name": "digit_ratio_url",
+          "importance": 1.3424
+        },
+        {
+          "name": "path_depth",
+          "importance": 1.2935
+        },
+        {
+          "name": "digit_count_host",
+          "importance": 1.131
+        },
+        {
+          "name": "path_entropy",
+          "importance": 1.0242
+        },
+        {
+          "name": "suspicious_tld",
+          "importance": 0.796
+        },
+        {
+          "name": "hyphen_count",
+          "importance": 0.5466
+        },
+        {
+          "name": "subdomain_depth",
+          "importance": 0.5128
+        },
+        {
+          "name": "consonant_vowel_ratio",
+          "importance": 0.4978
+        }
+      ]
+    },
+    {
+      "model": "XGBoost",
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "roc_auc": 1.0,
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.163
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.698
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.93
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.977
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "feature_importance": [
+        {
+          "name": "url_length",
+          "importance": 0.6049
+        },
+        {
+          "name": "uses_https",
+          "importance": 0.3914
+        },
+        {
+          "name": "host_entropy",
+          "importance": 0.0037
+        },
+        {
+          "name": "hostname_length",
+          "importance": 0.0
+        },
+        {
+          "name": "path_length",
+          "importance": 0.0
+        },
+        {
+          "name": "query_length",
+          "importance": 0.0
+        },
+        {
+          "name": "special_char_count",
+          "importance": 0.0
+        },
+        {
+          "name": "dot_count",
+          "importance": 0.0
+        },
+        {
+          "name": "hyphen_count",
+          "importance": 0.0
+        },
+        {
+          "name": "digit_count_host",
+          "importance": 0.0
+        },
+        {
+          "name": "digit_ratio_url",
+          "importance": 0.0
+        },
+        {
+          "name": "uppercase_in_host",
+          "importance": 0.0
+        }
+      ]
+    },
+    {
+      "model": "LightGBM",
+      "accuracy": 0.9811,
+      "f1": 0.9882,
+      "precision": 1.0,
+      "recall": 0.9767,
+      "roc_auc": 1.0,
+      "roc_curve": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.163
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.698
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.93
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.977
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "feature_importance": [
+        {
+          "name": "host_entropy",
+          "importance": 180.0
+        },
+        {
+          "name": "uses_https",
+          "importance": 38.0
+        },
+        {
+          "name": "url_length",
+          "importance": 24.0
+        },
+        {
+          "name": "explicit_port",
+          "importance": 5.0
+        },
+        {
+          "name": "hostname_length",
+          "importance": 0.0
+        },
+        {
+          "name": "path_length",
+          "importance": 0.0
+        },
+        {
+          "name": "query_length",
+          "importance": 0.0
+        },
+        {
+          "name": "special_char_count",
+          "importance": 0.0
+        },
+        {
+          "name": "dot_count",
+          "importance": 0.0
+        },
+        {
+          "name": "hyphen_count",
+          "importance": 0.0
+        },
+        {
+          "name": "digit_count_host",
+          "importance": 0.0
+        },
+        {
+          "name": "digit_ratio_url",
+          "importance": 0.0
+        }
+      ]
+    }
+  ]
+}
