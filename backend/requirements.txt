@@ -20,7 +20,6 @@ distro==1.9.0
 dnspython==2.8.0
 ecdsa==0.19.2
 email-validator==2.3.0
-emergentintegrations==0.1.0
 fastapi==0.110.1
 fastuuid==0.14.0
 filelock==3.29.0
@@ -69,7 +68,6 @@ mypy_extensions==1.1.0
 narwhals==2.22.1
 numba==0.66.0
 numpy==2.4.4
-nvidia-nccl-cu12==2.30.7
 oauthlib==3.3.1
 openai==1.99.9
 packaging==26.2
